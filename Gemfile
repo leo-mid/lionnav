@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.4'
+ruby '3.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
-gem 'puma', '~> 5'
+gem 'puma', '~> 6'
 # gem "passenger", ">= 5.3.2", require: "phusion_passenger/rack_handler"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
@@ -22,11 +22,6 @@ gem 'foundation-rails'
 gem 'autoprefixer-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
-gem 'capistrano'
-gem 'capistrano-rails'
-gem 'capistrano-rbenv'
-gem 'capistrano-passenger'
 
 # New Gems
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
@@ -70,3 +65,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "kamal", "~> 2.2"
+
+gem "ostruct", "~> 0.6.1"
