@@ -4,7 +4,7 @@ set :application, "lionnav"
 set :repo_url, "https://github.com/Thecharmander95/lionnav.git"
 set :branch, "master"
 set :deploy_to, "/home/leo/Production/#{fetch :application}"
-append :linked_files, "config/master.key"
+# append :linked_files, "config/master.key"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 # Default deploy_to directory is /var/www/my_app_name
