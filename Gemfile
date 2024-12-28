@@ -20,6 +20,14 @@ gem 'html2haml'
 gem 'haml-rails', '~> 2.0.1'
 gem 'foundation-rails'
 gem 'autoprefixer-rails'
+
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-rbenv'
+gem 'capistrano-passenger'
+
+gem "kamal", "~> 2.2"
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -65,11 +73,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "kamal", "~> 2.2"
-
-gem "ostruct", "~> 0.6.1"
-
-gem "net-protocol", "~> 0.2.2"
-
-gem "net-smtp", "~> 0.5.0"
