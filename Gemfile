@@ -71,3 +71,5 @@ gem "kamal", "~> 2.2"
 gem "ostruct", "~> 0.6.1"
 
 gem "net-protocol", "~> 0.2.2"
+
+gem "net-smtp", "~> 0.5.0"
