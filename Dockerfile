@@ -26,7 +26,6 @@ RUN apt-get update -qq && \
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler:2.4 
 RUN gem update --system
-RUN gem install psych:5.2.3
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
