@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t lion_finance .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name lion_finance lion_finance
+# This Dockerfile is designed for production, not development.
+# docker build -t app .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name app app
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
@@ -15,8 +15,9 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 WORKDIR /rails
 
 # Install base packages
+# Replace libpq-dev with sqlite3 if using SQLite, or libmysqlclient-dev if using MySQL
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+  apt-get install --no-install-recommends -y curl libjemalloc2 libvips libpq-dev postgresql-client nodejs && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -28,10 +29,23 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Install packages needed to build gems and node modules
+# Install packages needed to build gems
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config python-is-python3 && \
+  apt-get install --no-install-recommends -y build-essential curl git pkg-config libyaml-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install JavaScript dependencies and Node.js for asset compilation
+#
+# Uncomment the following lines if you are using NodeJS need to compile assets
+#
+# ARG NODE_VERSION=18.12.0
+# ARG YARN_VERSION=1.22.19
+# ENV PATH=/usr/local/node/bin:$PATH
+# RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+#     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+#     npm install -g yarn@$YARN_VERSION && \
+#     npm install -g mjml && \
+#     rm -rf /tmp/node-build-master
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -39,13 +53,20 @@ RUN bundle install && \
   rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
 
-
+# Install node modules
+#
+# Uncomment the following lines if you are using NodeJS need to compile assets
+#
+# COPY package.json yarn.lock ./
+# RUN --mount=type=cache,id=yarn,target=/rails/.cache/yarn YARN_CACHE_FOLDER=/rails/.cache/yarn \
+#     yarn install --frozen-lockfile
 
 # Copy application code
 COPY . .
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
+RUN chmod +x ./bin/docker-entrypoint
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 # RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
@@ -66,6 +87,6 @@ USER 1000:1000
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 5008
-CMD ["./bin/thrust", "./bin/rails", "server"]
+# Start the application server
+EXPOSE 3000
+CMD ["./bin/rails", "server"]
