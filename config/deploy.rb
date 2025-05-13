@@ -9,7 +9,6 @@ set :keep_releases, 5
 set :branch, "master"
 set :application, "lionnav"
 set :repo_url, "https://github.com/Thecharmander95/lionnav.git"
-set :branch, "main"
 set :deploy_to, "/home/leo/Production/#{fetch :application}"
 append :linked_files, "config/master.key"
 
