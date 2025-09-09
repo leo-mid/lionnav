@@ -9,7 +9,7 @@
 
 # server 'ec2-18-227-79-63.us-east-2.compute.amazonaws.com', user: 'ubuntu', roles: %w{app db web}
 
-server 'rorserver.lionnav.com:25457', user: 'leo', roles: %w{app db web}
+server '129.21.129.64', user: 'deploy', roles: %w{app db web}
 
 # role-based syntax
 # ==================
