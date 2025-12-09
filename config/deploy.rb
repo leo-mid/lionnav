@@ -1,16 +1,17 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.19.0"
+lock '~> 3.19.0'
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 
+       'public/uploads'
 
 # Only keep the last 5 releases to save disk space
 set :keep_releases, 5
 
-set :branch, "master"
-set :application, "lionnav"
-set :repo_url, "https://github.com/Thecharmander95/lionnav.git"
+set :branch, 'master'
+set :application, 'lionnav'
+set :repo_url, 'https://github.com/leo-mid/lionnav.git'
 set :deploy_to, "/home/deploy/Production/#{fetch :application}"
-append :linked_files, "config/master.key"
+append :linked_files, 'config/master.key'
 
 set :rbenv_type, :user
 

@@ -7,9 +7,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-# server 'ec2-18-227-79-63.us-east-2.compute.amazonaws.com', user: 'ubuntu', roles: %w{app db web}
-
-server '129.21.129.64', user: 'deploy', roles: %w{app db web}
+server Rails.application.credentials.dig(:cap, :host), user: 'deploy', roles: %w[app db web]
 
 # role-based syntax
 # ==================
@@ -31,7 +29,7 @@ server '129.21.129.64', user: 'deploy', roles: %w{app db web}
 # These variables are then only loaded and set in this stage.
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
-# Feel free to add new variables to customise your setup.
+# Feel free to add new variables to customize your setup.
 
 
 
