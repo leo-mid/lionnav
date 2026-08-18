@@ -8,7 +8,7 @@ gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
-gem 'puma', '~> 6'
+gem 'puma', '~> 7'
 # gem "passenger", ">= 5.3.2", require: "phusion_passenger/rack_handler"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
@@ -21,6 +21,7 @@ gem 'foundation-rails'
 gem 'haml-rails', '~> 2.0.1'
 gem 'html2haml'
 
+gem 'foreman'
 gem 'kamal', '~> 2.2'
 
 # Use Active Storage variant
