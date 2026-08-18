@@ -1,0 +1,7 @@
+{
+  "name": "lionnav",
+  "private": true,
+  "browserslist": [
+    "defaults"
+  ]
+}
